@@ -4,11 +4,28 @@
   <meta charset="UTF-8">
   <title>Weather App</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id='place'>#</div>
-  <div id='temp'>#</div>
-  <div id='description'>#</div>
+  <div class="container">
+    <p class="place">#</p>
+    <div class="weathertab">
+      <img class="icon" alt="weather icon">
+      <p class="temp">#</p>
+      <p class="weather">#</p>
+      <p class="description">#</p>
+      <p class="feelslike">Feels like:</p>
+      <p class="humidity">Humidity:</p>
+      <p class="windspeed">Windspeed:</p>
+    </div>
+    <form id="form">
+        <label for="location">Enter a location:</label>
+        <input type="text" name="locationfield">
+        <input type="submit" value="Search" id="button">
+    </form>
+  </div>
   <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
+
+<!-- at the bottom of the page: pictures website pixabay-->
