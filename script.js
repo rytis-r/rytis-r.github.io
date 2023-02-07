@@ -9,13 +9,11 @@ const myUnits = 'metric';
 const fetchData = async (APIkey = myAPIkey, units = myUnits) => {
   let myLocation = document.querySelector('input[name="locationfield"]').value;
   if (!myLocation.valueOf()) {
-    return false;
-  } else {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${myLocation}&APPID=${APIkey}&units=${units}`, {mode: 'cors'});
-    const weatherData = await response.json();
-
-    return weatherData;
+    myLocation = 'Calgary';
   }
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${myLocation}&APPID=${APIkey}&units=${units}`, {mode: 'cors'});
+  const weatherData = await response.json();
+  return weatherData;
 };
 
 //receives a promise and updates HTML
@@ -56,6 +54,8 @@ const updateHTML = fetchedData => {
     alert("The place has not been found. Please try again.");
   }))
 };
+
+updateHTML(fetchData());
 
 myForm.addEventListener('submit', (e) => {
   e.preventDefault();
