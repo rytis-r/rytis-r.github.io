@@ -28,9 +28,9 @@ const updateHTML = fetchedData => {
       weather: data.weather[0].main,
       description: data.weather[0].description,
       icon: data.weather[0].icon,
-      feelslike: data.main.feels_like,
-      humidity: data.main.humidity,
-      windspeed: data.wind.speed
+      feelslike: Math.round(data.main.feels_like),
+      humidity: Math.round(data.main.humidity),
+      windspeed: Math.round(data.wind.speed)
     };
     
     const place = document.querySelector('.place');
