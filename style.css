@@ -1,5 +1,5 @@
 html{
-    height:100%;
+    height: 100%;
 } 
 
 body {
@@ -8,7 +8,15 @@ body {
     background-repeat: no-repeat;
     background-position: left top;
     font-family: 'Kalam', cursive;
-    color: rgb(0, 0, 0);
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
 }
 
 *{
@@ -66,16 +74,19 @@ body {
 .feelslike {
     grid-column: 3 / 4;
     grid-row: 3 / 4;
+    margin-left: auto;
 }
 
 .humidity {
     grid-column: 3 / 4;
     grid-row: 4 / 5;
+    margin-left: auto;
 }
 
 .windspeed {
     grid-column: 3 / 4;
     grid-row: 5 / 6;
+    margin-left: auto;
 }
 
 form {
@@ -89,4 +100,54 @@ input[name="locationfield"], #button {
     border: none;
     border-radius: 10px;
     color:#fff;
+}
+
+@media (max-width: 599px){
+
+    html{
+        height: auto;
+    }
+
+    body {
+        background-image: url("imgs/Sky.jpg");
+    }
+
+    .weathertab {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+        width: auto;
+        margin: 0;
+    }
+
+    #myVideo {
+        display: none;
+    }
+    
+    .place, .temp, .icon, .weather, .description, .feelslike, .humidity, .windspeed {
+        margin: auto;
+        grid-column: auto;
+        grid-row: auto;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        margin: 30px;
+        font-size: default;
+        align-items: center;
+    }
+
+    input[name="locationfield"], #button {
+        background-color: #ffffff30;
+        font-size: 20px;
+        border: none;
+        border-radius: 10px;
+        color:#fff;
+    }
+
+    #button {
+        display: none;
+    }
 }
