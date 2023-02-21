@@ -2,28 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet">
 </head>
 <body>
-  <video autoplay muted loop id="myVideo">
-    <source src="./videos/Stars.mp4" type="video/mp4">
-  </video>
   <div class="container">
     <div class="weathertab">
       <p class="place"></p>
       <p class="temp"></p>
       <img class="icon" alt="weather icon">
-      <p class="weather"></p>
       <p class="description"></p>
       <p class="feelslike">Feels like:</p>
       <p class="humidity">Humidity:</p>
       <p class="windspeed">Windspeed:</p>
     </div>
     <form id="form">
-        <label for="location">Enter a location:</label>
-        <input type="text" name="locationfield" autocomplete="off">
+        <label for="location">Enter Location:</label>
+        <input type="text" name="locationfield" autocomplete="off" placeholder="Enter Location">
         <input type="submit" value="&#x1F50D" id="button">
     </form>
   </div>

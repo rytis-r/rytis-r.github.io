@@ -13,6 +13,7 @@ const fetchData = async (APIkey = myAPIkey, units = myUnits) => {
   }
   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${myLocation}&APPID=${APIkey}&units=${units}`, {mode: 'cors'});
   const weatherData = await response.json();
+  myLocation = '';
   return weatherData;
 };
 
@@ -35,7 +36,6 @@ const updateHTML = fetchedData => {
     
     const place = document.querySelector('.place');
     const temp = document.querySelector('.temp');
-    const weather = document.querySelector('.weather');
     const description = document.querySelector('.description');
     const icon = document.querySelector('.icon');
     const feelslike = document.querySelector('.feelslike');
@@ -44,7 +44,6 @@ const updateHTML = fetchedData => {
 
     place.innerHTML = `${Weather.place}, ${Weather.country}`;
     temp.innerHTML = `${Weather.temp} &#8451;`;
-    weather.innerHTML = Weather.weather;
     description.innerHTML = Weather.description;
     icon.src = `http://openweathermap.org/img/wn/${Weather.icon}.png`;
     feelslike.innerHTML = `Feels like: ${Weather.feelslike} &#8451;`;
@@ -60,4 +59,5 @@ updateHTML(fetchData());
 myForm.addEventListener('submit', (e) => {
   e.preventDefault();
   updateHTML(fetchData());
+  e.target.reset();
 });
