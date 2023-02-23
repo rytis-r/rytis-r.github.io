@@ -44,9 +44,9 @@ const updateHTML = fetchedData => {
       humidity: Math.round(data.main.humidity),
       windspeed: Math.round(data.wind.speed),
       // receives UNIX timestamp and timezone in seconds and returns local time in hours and minutes
-      hoursMinutesTime: ((new Date(data.dt + data.timezone * 1000)).toLocaleTimeString("en-GB")).substring(0, 5)
+      hoursMinutesTime: ((new Date((data.dt + data.timezone) * 1000)).toUTCString("en-GB")).substring(17, 22),
     };
-    
+
     const place = document.querySelector('.place');
     const temp = document.querySelector('.temp');
     const description = document.querySelector('.description');
