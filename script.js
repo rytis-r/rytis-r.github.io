@@ -4,16 +4,27 @@ const myAPIkey = '5dc65a05b2b9cfc577519e09ef1870be';
 //Fahrenheit (imperial) or Celsius (metric)
 const myUnits = 'metric';
 
-//gets data from Openweathermap API
+//gets current weather data from Openweathermap API
 
-const fetchData = async (APIkey = myAPIkey, units = myUnits) => {
+const fetchDataCurrent = async (APIkey = myAPIkey, units = myUnits) => {
   let myLocation = document.querySelector('input[name="locationfield"]').value;
   if (!myLocation.valueOf()) {
     myLocation = 'Calgary';
   }
   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${myLocation}&APPID=${APIkey}&units=${units}`, {mode: 'cors'});
   const weatherData = await response.json();
-  myLocation = '';
+  return weatherData;
+};
+
+//gets 7 days weather data from Openweathermap API
+
+const fetchData7days = async (APIkey = myAPIkey, units = myUnits) => {
+  let myLocation = document.querySelector('input[name="locationfield"]').value;
+  if (!myLocation.valueOf()) {
+    myLocation = 'Calgary';
+  }
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${myLocation}&units=${units}&cnt=40&appid=${APIkey}`, {mode: 'cors'});  
+  const weatherData = await response.json();
   return weatherData;
 };
 
@@ -31,12 +42,15 @@ const updateHTML = fetchedData => {
       icon: data.weather[0].icon,
       feelslike: Math.round(data.main.feels_like),
       humidity: Math.round(data.main.humidity),
-      windspeed: Math.round(data.wind.speed)
+      windspeed: Math.round(data.wind.speed),
+      // receives UNIX timestamp and timezone in seconds and returns local time in hours and minutes
+      hoursMinutesTime: ((new Date(data.dt + data.timezone * 1000)).toLocaleTimeString("en-GB")).substring(0, 5)
     };
     
     const place = document.querySelector('.place');
     const temp = document.querySelector('.temp');
     const description = document.querySelector('.description');
+    const timenow = document.querySelector('.timenow');
     const icon = document.querySelector('.icon');
     const feelslike = document.querySelector('.feelslike');
     const humidity = document.querySelector('.humidity');
@@ -45,6 +59,7 @@ const updateHTML = fetchedData => {
     place.innerHTML = `${Weather.place}, ${Weather.country}`;
     temp.innerHTML = `${Weather.temp} &#8451;`;
     description.innerHTML = Weather.description;
+    timenow.innerHTML = Weather.hoursMinutesTime;
     icon.src = `http://openweathermap.org/img/wn/${Weather.icon}.png`;
     feelslike.innerHTML = `Feels like: ${Weather.feelslike} &#8451;`;
     humidity.innerHTML = `Humidity: ${Weather.humidity} %`;
@@ -54,10 +69,10 @@ const updateHTML = fetchedData => {
   }))
 };
 
-updateHTML(fetchData());
+updateHTML(fetchDataCurrent());
 
 myForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  updateHTML(fetchData());
+  updateHTML(fetchDataCurrent());
   e.target.reset();
 });
