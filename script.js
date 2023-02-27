@@ -16,21 +16,21 @@ const fetchDataCurrent = async (APIkey = myAPIkey, units = myUnits) => {
   return weatherData;
 };
 
-//gets 7 days weather data from Openweathermap API
+//gets the following 15 hours of weather data from Openweathermap API
 
-const fetchData7days = async (APIkey = myAPIkey, units = myUnits) => {
+const fetchData15hrs = async (APIkey = myAPIkey, units = myUnits) => {
   let myLocation = document.querySelector('input[name="locationfield"]').value;
   if (!myLocation.valueOf()) {
     myLocation = 'Calgary';
   }
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${myLocation}&units=${units}&cnt=40&appid=${APIkey}`, {mode: 'cors'});  
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${myLocation}&units=${units}&cnt=15&appid=${APIkey}`, {mode: 'cors'});  
   const weatherData = await response.json();
   return weatherData;
 };
 
 //receives a promise and updates HTML
 
-const updateHTML = fetchedData => {
+const updateHTMLCurrent = fetchedData => {
   fetchedData.then((data => {
 
     const Weather = {
@@ -69,10 +69,36 @@ const updateHTML = fetchedData => {
   }))
 };
 
-updateHTML(fetchDataCurrent());
+const updateHTML15hrs = fetchedData => {
+  fetchedData.then((data => {
+    for (let i = 0; i < 5; i++) {
+
+    const Weather = {
+      temp: Math.round(data.list[i].main.temp),
+      icon: (data.list[i].weather[0].icon),
+      // receives UNIX timestamp and timezone in seconds and returns local time in hours and minutes
+      hoursMinutesTime: ((new Date((data.list[i].dt + data.city.timezone) * 1000)).toUTCString("en-GB")).substring(17, 22),
+    };
+
+    const temp = document.querySelector(`.forecast${i+1} .frcsttemp`);
+    const time = document.querySelector(`.forecast${i+1} .frcsttime`);
+    const icon = document.querySelector(`.forecast${i+1} .frcsticon`);
+    
+    temp.innerHTML = `${Weather.temp} &#8451;`;
+    time.innerHTML = Weather.hoursMinutesTime;
+    icon.src = `http://openweathermap.org/img/wn/${Weather.icon}.png`;
+  }
+})).catch((error => {
+    alert("The place has not been found. Please try again.");
+  }))
+};
+
+updateHTMLCurrent(fetchDataCurrent());
+updateHTML15hrs(fetchData15hrs());
 
 myForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  updateHTML(fetchDataCurrent());
+  updateHTMLCurrent(fetchDataCurrent());
+  updateHTML15hrs(fetchData15hrs());
   e.target.reset();
 });
