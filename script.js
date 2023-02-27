@@ -23,7 +23,7 @@ const fetchData15hrs = async (APIkey = myAPIkey, units = myUnits) => {
   if (!myLocation.valueOf()) {
     myLocation = 'Calgary';
   }
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${myLocation}&units=${units}&cnt=15&appid=${APIkey}`, {mode: 'cors'});  
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${myLocation}&units=${units}&cnt=5&appid=${APIkey}`, {mode: 'cors'});  
   const weatherData = await response.json();
   return weatherData;
 };

@@ -43,6 +43,7 @@ body {
     height: 300px;
     width: 500px;
     margin-top: 100px;
+    flex: 2;
 }
 
 .place {
@@ -102,6 +103,7 @@ body {
 form {
     margin: 50px;
     font-size: 20px;
+    flex: 1;
 }
 
 input[name="locationfield"], #button {
@@ -133,6 +135,12 @@ input::placeholder {
     form label {
         display: none;
     }
+
+    .weathertab {
+        margin: 25px;
+        height: auto;
+        width: auto;
+    }
 }
 
 @media (max-width: 567px) {
@@ -151,12 +159,6 @@ input::placeholder {
         font-size: 6vi;
     }
 
-    .weathertab {
-        margin: 25px;
-        height: auto;
-        width: auto;
-    }
-
     input[name="locationfield"], #button {
         display: inline-block;
     }
@@ -170,11 +172,21 @@ input::placeholder {
     }
 
     .lowercontainer {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
         align-items: center;
         justify-content: space-between;
         font-size: 3vi;
+    }
+}
+
+@media (max-height: 700px) {
+
+    .uppercontainer {
+        flex: 1;
+    }
+
+    .lowercontainer {
+        margin: 0;
+        font-size: 1rem;
+        flex: 1;
     }
 }
