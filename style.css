@@ -95,8 +95,23 @@ div[class^="forecast"]:nth-child(4) {
     }
 }
 
-@media(max-height: 740px) {
-    .frcsttime, .frcsttemp {
+@media(max-height: 800px) {
+    .temp, .timenow, .description, .feelslike, .humidity, .windspeed {
         margin: 0px;
+    }
+}
+
+@media(min-width: 400px) {
+    .lowercontainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+@media(min-width: 1200px) {
+    .lowercontainer {
+        gap: 80px;
     }
 }
